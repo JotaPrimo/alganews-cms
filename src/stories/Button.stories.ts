@@ -47,3 +47,12 @@ export const Text: Story = {
 };
 
 
+export const Disabled: Story = {
+  args: {    
+    variant: 'primary',
+    label: 'Disabled',
+    disabled: true
+  },
+};
+
+
