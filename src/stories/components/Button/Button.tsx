@@ -13,4 +13,4 @@ export default function Button ({ label, variant, ref, ...props }: ButtonProps) 
   >
     { label }
   </B.Wrapper>
-}
+}  
