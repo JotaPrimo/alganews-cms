@@ -10,7 +10,7 @@ export default function Input({ label, ref, ...props }: InputProps) {
     return <I.Wrapper>
       {
         label && 
-        <span>
+        <span className="Label">
             { label }
         </span>
       }
