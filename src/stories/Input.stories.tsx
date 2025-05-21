@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Input, { InputProps } from './components/Input/Input';
+import Input, { InputProps } from '../components/Input/Input';
 
 // Define o meta com tipagem
 const meta: Meta<typeof Input> = {
