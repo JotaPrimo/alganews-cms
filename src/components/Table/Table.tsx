@@ -4,9 +4,14 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
+
+import * as T from "./Table.style";
+import Icon from "@mdi/react";
+import { mdiOpenInNew } from "@mdi/js";
 
 type DataType = {
+  preview: React.ReactNode;
   col1: string;
   col2: string;
   actions: string;
@@ -18,16 +23,19 @@ export default function Table() {
       col1: "Hello",
       col2: "World",
       actions: "ações",
+      preview: <Icon path={mdiOpenInNew} size="14"  color="#09f" />
     },
     {
       col1: "react-table",
       col2: "rocks",
       actions: "ações",
+      preview: <Icon path={mdiOpenInNew} size="14"  color="#09f" />
     },
     {
       col1: "whatever",
       col2: "you want",
       actions: "ações",
+      preview: <Icon path={mdiOpenInNew} size="14"  color="#09f" />
     },
   ]);
 
@@ -35,6 +43,10 @@ export default function Table() {
 
   const columns = useMemo(
     () => [
+      columnHelper.accessor("preview", {
+        header: "",
+        cell: (info) => info.getValue(),
+      }),
       columnHelper.accessor("col1", {
         header: "Column 1",
         cell: (info) => info.getValue(),
@@ -58,32 +70,32 @@ export default function Table() {
   });
 
   return (
-    <table>
-      <thead>
+    <T.Wrapper cellPadding={0} cellSpacing={0}>
+      <T.Heading>
         {tableInstance.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
+          <T.HeadingRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id}>
+              <T.HeadingCell key={header.id}>
                 {flexRender(
                   header.column.columnDef.header,
                   header.getContext()
                 )}
-              </th>
+              </T.HeadingCell>
             ))}
-          </tr>
+          </T.HeadingRow>
         ))}
-      </thead>
-      <tbody>
+      </T.Heading>
+      <T.Body>
         {tableInstance.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
+          <T.BodyRow key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
+              <T.BodyCell key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
+              </T.BodyCell>
             ))}
-          </tr>
+          </T.BodyRow>
         ))}
-      </tbody>
-    </table>
+      </T.Body>
+    </T.Wrapper>
   );
 }
