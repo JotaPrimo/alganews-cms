@@ -49,11 +49,11 @@ export default function Table() {
       }),
       columnHelper.accessor("col1", {
         header: "Column 1",
-        cell: (info) => info.getValue(),
+        cell: (info) => <div style={{ textAlign: 'right' }}>{info.getValue()}</div>        
       }),
       columnHelper.accessor("col2", {
         header: "Column 2",
-        cell: (info) => info.getValue(),
+        cell: (info) => <div style={{ textAlign: 'center' }}>{info.getValue()}</div>   
       }),
       columnHelper.accessor("actions", {
         header: "Ações",
