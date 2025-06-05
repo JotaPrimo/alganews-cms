@@ -1,68 +1,20 @@
-import {
-  createColumnHelper,
+// Table.tsx
+import {  
   flexRender,
   getCoreRowModel,
   useReactTable,
+  ColumnDef,
 } from "@tanstack/react-table";
-import React, { useMemo, useState } from "react";
 
+
+// interfaces e tipos
 import * as T from "./Table.style";
-import Icon from "@mdi/react";
-import { mdiOpenInNew } from "@mdi/js";
+export interface TableProps<TData> {
+  data: TData[];
+  columns: ColumnDef<TData>[];
+}
 
-type DataType = {
-  preview: React.ReactNode;
-  col1: string;
-  col2: string;
-  actions: string;
-};
-
-export default function Table() {
-  const [data, setData] = useState<DataType[]>([
-    {
-      col1: "Hello",
-      col2: "World",
-      actions: "ações",
-      preview: <Icon path={mdiOpenInNew} size="14"  color="#09f" />
-    },
-    {
-      col1: "react-table",
-      col2: "rocks",
-      actions: "ações",
-      preview: <Icon path={mdiOpenInNew} size="14"  color="#09f" />
-    },
-    {
-      col1: "whatever",
-      col2: "you want",
-      actions: "ações",
-      preview: <Icon path={mdiOpenInNew} size="14"  color="#09f" />
-    },
-  ]);
-
-  const columnHelper = createColumnHelper<DataType>();
-
-  const columns = useMemo(
-    () => [
-      columnHelper.accessor("preview", {
-        header: "",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("col1", {
-        header: "Column 1",
-        cell: (info) => <div style={{ textAlign: 'right' }}>{info.getValue()}</div>        
-      }),
-      columnHelper.accessor("col2", {
-        header: "Column 2",
-        cell: (info) => <div style={{ textAlign: 'center' }}>{info.getValue()}</div>   
-      }),
-      columnHelper.accessor("actions", {
-        header: "Ações",
-        cell: (info) => info.getValue(),
-      }),
-    ],
-    [columnHelper]
-  );
-
+export default function Table<TData>({ data, columns }: TableProps<TData>) {
   const tableInstance = useReactTable({
     data,
     columns,
