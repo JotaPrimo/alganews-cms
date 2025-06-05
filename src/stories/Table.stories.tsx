@@ -7,7 +7,7 @@ import { mdiOpenInNew, mdiDelete, mdiPencil } from "@mdi/js";
 import React from "react";
 
 // Definir tipo específico para os dados
-type SampleData = {
+type Data = {
   id: number;
   name: string;
   value: number;
@@ -23,8 +23,8 @@ const meta: Meta<typeof Table> = {
 export default meta;
 
 // Story para tabela com ações
-export const TableWithActions: StoryObj<TableProps<SampleData>> = {
-  render: (args) => <Table<SampleData> {...args} />,
+export const Default: StoryObj<TableProps<Data>> = {
+  render: (args) => <Table<Data> {...args} />,
   args: {
     data: [
       {
@@ -75,16 +75,23 @@ export const TableWithActions: StoryObj<TableProps<SampleData>> = {
           </div>
         ),
       },
-    ] as ColumnDef<SampleData>[],
+    ] as ColumnDef<Data>[],
   },
 };
 
-// Story para tabela vazia
-export const EmptyTable: StoryObj<TableProps<SampleData>> = {
-  render: (args) => <Table<SampleData> {...args} />,
+
+export const NoData: StoryObj<TableProps<Data>> = {
+  render: (args) => <Table<Data> {...args} />,
   args: {
-    data: [],
+    data: [
+      
+    ],
     columns: [
+      {
+        accessorKey: "preview",
+        header: "",
+        cell: (info) => info.getValue(),
+      },
       {
         accessorKey: "id",
         header: "ID",
@@ -96,7 +103,19 @@ export const EmptyTable: StoryObj<TableProps<SampleData>> = {
       {
         accessorKey: "value",
         header: "Valor",
+        cell: (info) => `R$ ${info.getValue()}`,
       },
-    ] as ColumnDef<SampleData>[],
+      {
+        accessorKey: "actions",
+        header: "Ações",
+        cell: () => (
+          <div style={{ display: "flex", gap: "8px" }}>
+            <Icon path={mdiPencil} size={0.7} color="#666" />
+            <Icon path={mdiDelete} size={0.7} color="#ff5555" />
+          </div>
+        ),
+      },
+    ] as ColumnDef<Data>[],
   },
 };
+
